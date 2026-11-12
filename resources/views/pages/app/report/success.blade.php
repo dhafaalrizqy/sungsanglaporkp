@@ -1,21 +1,26 @@
 @extends('layouts.no-nav')
-
+ 
 @section('title', 'Laporan Berhasil Dikirim')
-
+ 
 @section('content')
 <div class="d-flex flex-column justify-content-center align-items-center vh-75">
             <div id="lottie"></div>
-
+ 
             <h6 class="fw-bold text-center mb-2">Yeay! Laporan kamu berhasil dibuat</h6>
             <p class="text-center mb-4">Kamu bisa melihat laporan yang dibuat di halaman laporan</p>
-
-
+ 
+            @if(session('report_code'))
+                <a href="{{ route('report.receipt', session('report_code')) }}" class="btn btn-outline-primary py-2 px-4 mb-2">
+                    Unduh Bukti Laporan (PDF)
+                </a>
+            @endif
+ 
             <a href="{{ route('report.myreport', ['status' => 'delivered']) }}" class="btn btn-primary py-2 px-4">
                 Lihat Laporan
             </a>
         </div>
 @endsection
-
+ 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
     <script>
@@ -28,3 +33,4 @@
         })
     </script>
 @endsection
+ 

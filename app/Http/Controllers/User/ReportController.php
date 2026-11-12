@@ -65,17 +65,19 @@ class ReportController extends Controller
     }
 
     public function store(StoreReportRequest $request)
-    {
-        $data = $request->validated();
+{
+    $data = $request->validated();
 
-        $data['code'] = 'SUNGSANGLAPOR' . mt_rand(100000, 999999);
-        $data['resident_id'] = Auth::user()->resident->id;
-        $data['image'] = $request->file('image')->store('assets/report/image', 'public');
+    $data['code'] = 'SUNGSANGLAPOR' . mt_rand(100000, 999999);
+    $data['resident_id'] = Auth::user()->resident->id;
+    $data['image'] = $request->file('image')->store('assets/report/image', 'public');
 
-        $this->reportRepository->createReport($data);
+    $this->reportRepository->createReport($data);
 
-        return redirect()->route('report.success');
-    }
+    return redirect()
+        ->route('report.success')
+        ->with('report_code', $data['code']);
+}
 
     public function success()
     {

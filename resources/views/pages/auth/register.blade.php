@@ -46,10 +46,12 @@
 
             <div class="mb-3">
                 <label for="avatar" class="form-label">Foto Profil</label>
-                <input type="file" class="form-control @error('avatar') is-invalid @enderror" id="avatar" name="avatar">
+                <input type="file" class="form-control @error('avatar') is-invalid @enderror" id="avatar" name="avatar"
+                    accept="image/png, image/jpeg">
+                <div class="form-text">maksimal 2 MB.</div>
 
                 @error('avatar')
-                <div class="invalid-feedback">
+                <div class="invalid-feedback d-block">
                     {{ $message }}
                 </div>
                 @enderror
@@ -67,6 +69,19 @@
                 @enderror
             </div>
 
+            {{-- Konfirmasi Password (BARU) --}}
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
+                    id="password_confirmation" name="password_confirmation">
+
+                @error('password_confirmation')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
             <button class="btn btn-primary w-100 mt-2" type="submit" color="primary" id="btn-login">
                 Daftar
             </button>
@@ -75,4 +90,17 @@
                 <a href="{{ route('login') }}" class="text-decoration-none text-primary">Sudah punya akun?</a>
             </div>
         </form>
+
+{{-- Cek ukuran foto profil di browser (maks 2 MB). Validasi utama tetap di controller. --}}
+<script>
+    document.getElementById('avatar').addEventListener('change', function () {
+        const file = this.files[0];
+        const maxSize = 2 * 1024 * 1024; // 2 MB
+
+        if (file && file.size > maxSize) {
+            alert('Ukuran foto profil maksimal 2 MB.');
+            this.value = ''; // kosongkan pilihan file
+        }
+    });
+</script>
 @endsection

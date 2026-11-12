@@ -1,24 +1,24 @@
 @extends('layouts.app')
-
+ 
 @section('title', $report->code)
-
+ 
 @section('content')
     <div class="header-nav">
             <a href="{{ route('home') }}">
                 <img src="{{ asset('assets/app/images/icons/ArrowLeft.svg') }}" alt="arrow-left">
             </a>
-
+ 
             <h1>Detail Laporan {{ $report->code }}</h1>
         </div>
-
+ 
         <img src="{{ asset('storage/' . $report->image) }}" alt="" class="report-image mt-5">
-
+ 
         <h1 class="report-title mt-3">{{ $report->title }}</h1>
-
+ 
         <div class="card card-report-information mt-4">
             <div class="card-body">
                 <div class="card-title mb-4 fw-bold">Detail Informasi</div>
-
+ 
                 <div class="row mb-3">
                     <div class="col-4 text-secondary">Kode</div>
                     <div class="col-8 d-flex">
@@ -72,27 +72,27 @@
                         @if ($report->reportStatuses->last()->status === 'delivered')
                             <div class="badge-pending ">
                                 <img src="{{ asset('assets/app/images/icons/CircleNotch.svg') }}" alt="pending">
-
+ 
                                 <p>Terkirim</p>
                             </div>
                         @endif
-
+ 
                         @if ($report->reportStatuses->last()->status === 'in_process')
                             <div class="badge-pending ">
                                 <img src="{{ asset('assets/app/images/icons/CircleNotch.svg') }}" alt="pending">
-
+ 
                                 <p>Terkirim</p>
                             </div>
                         @endif
-
+ 
                         @if ($report->reportStatuses->last()->status === 'completed')
                             <div class="badge-success">
                                 <img src="{{ asset('assets/app/images/icons/Checks.svg') }}" alt="pending">
-
+ 
                                 <p>Selesai</p>
                             </div>
                         @endif
-
+ 
                         @if ($report->reportStatuses->last()->status === 'rejected')
                             <div class="badge-pending">
                                 <p>Selesai</p>
@@ -102,11 +102,22 @@
                 </div>
             </div>
         </div>
-
+ 
+        <div class="card card-report-information mt-4">
+            <div class="card-body">
+                <div class="card-title mb-2 fw-bold">Bukti Laporan</div>
+                <p class="text-secondary mb-3">Simpan sebagai tanda terima pengaduanmu.</p>
+ 
+                <a href="{{ route('report.receipt', $report->code) }}" class="btn btn-primary w-100">
+                    Unduh Bukti Laporan (PDF)
+                </a>
+            </div>
+        </div>
+ 
         <div class="card card-report-information mt-4">
             <div class="card-body">
                 <div class="card-title mb-4 fw-bold">Riwayat Perkembangan</div>
-
+ 
                 <ul class="timeline">
                     @foreach ($report->reportStatuses as $status)
                         <li class="timeline-item">

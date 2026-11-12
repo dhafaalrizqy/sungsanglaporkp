@@ -1,3 +1,5 @@
+profile.blade.php
+
 @extends('layouts.app')
 
 @section('title', 'Profil Saya')
